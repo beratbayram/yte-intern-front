@@ -79,4 +79,15 @@ export default class Api {
 
         toast.success("Activity added successfully");
     }
+
+    static async deleteActivity(activityId: string) {
+        const {data: response} = await axios.delete(activityPrefix + "delete/" + activityId);
+
+        if (response.messageType !== "SUCCESS") {
+            toast.error(response.message);
+            throw new Error();
+        }
+
+        toast.success("Activity deleted successfully");
+    }
 }

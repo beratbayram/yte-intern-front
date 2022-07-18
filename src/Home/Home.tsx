@@ -38,7 +38,7 @@ export default function Home() {
                 </Col>
             </Row>
             <Row>
-                <ActivitiesList/>
+                <ActivitiesList refresh={forceUpdate}/>
             </Row>
         </Container>
     );

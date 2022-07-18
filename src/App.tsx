@@ -21,6 +21,6 @@ export default function App() {
                 }/>
             </Routes>
         </BrowserRouter>
-        <ToastContainer theme="colored"/>
+        <ToastContainer theme="colored" autoClose={2500}/>
     </>
 }
