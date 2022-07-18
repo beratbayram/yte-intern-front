@@ -1,6 +1,7 @@
 import {Container, Row, Col} from "react-bootstrap";
 import Login from "./Login";
 import "./Welcome.scss";
+import SignUp from "./SignUp";
 
 export default function Welcome() {
     return (
@@ -14,7 +15,7 @@ export default function Welcome() {
                         <Login/>
                     </Col>
                     <Col md={{ span: 5, offset: 2 }}>
-                        <Login/>
+                        <SignUp/>
                     </Col>
                 </Row>
             </Container>
