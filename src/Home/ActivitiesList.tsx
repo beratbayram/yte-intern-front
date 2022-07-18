@@ -3,6 +3,7 @@ import {DispatchWithoutAction, useEffect} from "react";
 import Api from "../api/Api";
 import dateArrToString from "../utils/dateArrToString";
 import {useActivityContext} from "./ActivityContext";
+import EditEventModal from "./EditEventModal";
 
 interface Props {
     refresh: DispatchWithoutAction
@@ -37,8 +38,9 @@ export default function ActivitiesList({refresh}: Props) {
             {
                 value.map((value, index) => {
                         const {activityId, activityName, startDate, endDate, quota} = value;
+                        if(!activityId) throw new Error(`Activity ${activityName} has no id`)
                         return (
-                            <tr key={index + 1} onClick={() => console.log(activityName)}>
+                            <tr key={index + 1}>
                                 <td>{index + 1}</td>
                                 <td>{activityName}</td>
                                 <td>{dateArrToString(startDate)}</td>
@@ -52,11 +54,7 @@ export default function ActivitiesList({refresh}: Props) {
                                     >
                                         Delete
                                     </Button>
-                                    <Button size="sm"
-                                            variant="info"
-                                    >
-                                        Edit
-                                    </Button>
+                                    <EditEventModal activity={value} refresh={refresh}/>
                                 </td>
                             </tr>
                         )

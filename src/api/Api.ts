@@ -63,15 +63,34 @@ export default class Api {
         return await axios.get(activityPrefix + "allActivities");
     }
 
-    static async addActivity(name: string, startDate: string, endDate: string, quota: number) {
+    static async addActivity(activityName: string, startDate: string, endDate: string, quota: number) {
         const payload = {
-            activityName: name,
+            activityName,
             startDate,
             endDate,
             quota,
         }
 
         const {data: response} = await axios.post(activityPrefix + "newActivity", payload);
+        if (response.messageType !== "SUCCESS") {
+            toast.error(response.message);
+            throw new Error();
+        }
+
+        toast.success("Activity added successfully");
+    }
+
+    static async updateActivity(
+        activityId: string, activityName: string, startDate: string, endDate: string, quota: number
+    ) {
+        const payload = {
+            activityName,
+            startDate,
+            endDate,
+            quota,
+        }
+
+        const {data: response} = await axios.post(activityPrefix + "update/"+ activityId, payload);
         if (response.messageType !== "SUCCESS") {
             toast.error(response.message);
             throw new Error();
@@ -90,4 +109,6 @@ export default class Api {
 
         toast.success("Activity deleted successfully");
     }
+
+
 }
