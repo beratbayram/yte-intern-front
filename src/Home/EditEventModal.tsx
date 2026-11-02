@@ -76,7 +76,7 @@ export default function EditEventModal({activity,refresh}: Props) {
                             <Form.Label>End Date</Form.Label>
                             <Form.Control required
                                           type="datetime-local"
-                                          defaultValue={endDate}
+                                          defaultValue={dateArrToLocalDateTime(endDate)}
                                           placeholder="Enter end date"/>
                         </Form.Group>
 

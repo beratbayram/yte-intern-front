@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# YTE Intern Front
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The React front end of my 2022 summer internship project at TÜBİTAK BİLGEM YTE: an event management app where users sign up, log in and manage events (called activities in the API) with a name, a start and end date and a participant quota.
 
-## Available Scripts
+It talks to a separate back end on `http://localhost:8080`, which is not in this repository.
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+- Sign up with an ID number (sent as `customerTCId`), user name and password, then log in
+- List all events in a table with formatted dates
+- Add, edit and delete events from Bootstrap modals
+- Success and error messages from the back end shown as toasts
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Running
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Start the back end on port 8080 first, then:
 
-### `yarn test`
+```bash
+yarn install
+yarn start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Open [http://localhost:3000](http://localhost:3000).
 
-### `yarn build`
+| Command      | What it does                   |
+| ------------ | ------------------------------ |
+| `yarn start` | Dev server                     |
+| `yarn build` | Production build into `build/` |
+| `yarn test`  | Jest in watch mode             |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## API
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`src/api/Api.ts` wraps every call with axios (base URL `http://localhost:8080/`):
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Method | Path                          | Used for            |
+| ------ | ----------------------------- | ------------------- |
+| POST   | `user/signUp`                 | Sign up             |
+| POST   | `user/login`                  | Log in              |
+| GET    | `activity/allActivities`      | List events         |
+| POST   | `activity/newActivity`        | Create an event     |
+| POST   | `activity/update/:activityId` | Update an event     |
+| DELETE | `activity/delete/:activityId` | Delete an event     |
 
-### `yarn eject`
+Dates come back from the back end as arrays (`[year, month, day, hour, minute]`, the Java `LocalDateTime` JSON shape); `src/utils/` converts them for display and for the form inputs.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Stack
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create React App (react-scripts 5), React 18, TypeScript, React Router 6, React Bootstrap 2, axios, react-toastify, Sass.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+MIT
